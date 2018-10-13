@@ -1,0 +1,31 @@
+1：模块加载
+Node.js模块分为核心模块和文件模块，核心模块被编译成二进制文件。
+文件模块是存储为单独的文件的模块，可以是javascript代码、Json或编译好的C/C++代码，
+核心模块拥有最高的加载优先级，如果有模块与其命名冲突，Node.js总是加载核心模块。
+文件模块如果不显式指定文件模块扩展名，则会按照.js、.json、.node的顺序加上扩展名。
+文件模块的加载有两种方式，一种是按路径加载，一种是查找node_modules文件夹。
+文件模块按路径加载又分为按相对路径加载和按绝对路径加载两种。
+
+模块加载顺序
+（1）：载入核心模块
+（2）：载入文件模块
+（3）：载入文件目录模块
+（4）：载入node_modules里的模块
+（5）：自动缓存已载入模块
+
+2：exports 是 Module.exports的引用
+Module.exports才是真正的接口，exports只不过是它的一个辅助工具。最终返回给调用的是Module.exports而不是exports
+exports仅仅是module.exports的一个地址引用
+
+Node.js在模块编译的过程中会对模块进行包装，最终会返回类似下面的代码：
+(function (exports, require, module, __filename, __dirname) {
+    // module code...
+});
+所以在每个模块都有自己独立的module，module代表了这个模块
+
+如果要对外暴露属性或方法，就用exports就行，要暴露对象(类似class，包含了很多属性和方法)，就用module.exports
+
+
+
+
+
